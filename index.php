@@ -10,11 +10,11 @@ use OnlineStore\Exceptions\CartLimitExceededException;
 use OnlineStore\Exceptions\InsufficientFundsException;
 use OnlineStore\Exceptions\PaymentGatewayException;
 
-// Создание продуктов
+// продукты
 $product1 = new Product("Laptop", 1000, 5);
 $product2 = new Product("Smartphone", 500, 10);
 
-// Создание корзины и добавление товаров
+// корзина и добавление товаров
 $cart = new Cart();
 try {
     $cart->addItem($product1, 2);
@@ -25,7 +25,7 @@ try {
     echo "Error: " . $e->getMessage() . "\n";
 }
 
-// Создание объекта Checkout и завершение заказа
+// Checkout
 $checkout = new Checkout($cart, 2500);
 $checkout->setPaymentMethod("credit card");
 
