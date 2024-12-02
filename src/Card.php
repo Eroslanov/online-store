@@ -11,13 +11,13 @@ class Cart {
 
     public function addItem(Product $product, $quantity) {
         if (count($this->items) >= $this->maxItems) {
-            throw new CartLimitExceededException("Cart limit exceeded");
+            throw new CartLimitExceededException("Превышен лимит корзины");
         }
         if (!isset($this->items[$product->getName()])) {
             $this->items[$product->getName()] = ['product' => $product, 'quantity' => 0];
         }
         if ($this->items[$product->getName()]['product']->getStock() < $quantity) {
-            throw new ItemOutOfStockException("Item out of stock");
+            throw new ItemOutOfStockException("Товара нет в наличии");
         }
         $this->items[$product->getName()]['quantity'] += $quantity;
         $this->items[$product->getName()]['product']->reduceStock($quantity);
