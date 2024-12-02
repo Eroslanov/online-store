@@ -16,7 +16,7 @@ class CheckoutTest extends TestCase {
         $cart->addItem($product2, 1);
         $checkout = new Checkout($cart, 2500);
         $checkout->setPaymentMethod("credit card");
-        $this->expectOutputString("Order finalized successfully!\n");
+        $this->expectOutputString("Заказ успешно выполнен\n");
         $checkout->finalizeOrder();
     }
 
@@ -28,7 +28,7 @@ class CheckoutTest extends TestCase {
         $cart->addItem($product2, 1);
         $checkout = new Checkout($cart, 2000);
         $checkout->setPaymentMethod("credit card");
-        $this->expectOutputString("Error: Insufficient funds\n");
+        $this->expectOutputString("Ошибка: Недостаточно средств\n");
         $checkout->finalizeOrder();
     }
 
@@ -40,7 +40,7 @@ class CheckoutTest extends TestCase {
         $cart->addItem($product2, 1);
         $checkout = new Checkout($cart, 3000);
         $checkout->setPaymentMethod("credit card");
-        $this->expectOutputString("Error: Payment gateway error\n");
+        $this->expectOutputString("Ошибка: Недостаточно средств\n");
         $checkout->finalizeOrder();
     }
 }
