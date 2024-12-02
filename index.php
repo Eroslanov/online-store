@@ -20,19 +20,19 @@ try {
     $cart->addItem($product1, 2);
     $cart->addItem($product2, 1);
 } catch (ItemOutOfStockException $e) {
-    echo "Error: " . $e->getMessage() . "\n";
+    echo "ошибка: " . $e->getMessage() . "\n";
 } catch (CartLimitExceededException $e) {
-    echo "Error: " . $e->getMessage() . "\n";
+    echo "ошибка: " . $e->getMessage() . "\n";
 }
 
-// Checkout
+
 $checkout = new Checkout($cart, 2500);
 $checkout->setPaymentMethod("credit card");
 
 try {
     $checkout->finalizeOrder();
 } catch (InsufficientFundsException $e) {
-    echo "Error: " . $e->getMessage() . "\n";
+    echo "ошибка: " . $e->getMessage() . "\n";
 } catch (PaymentGatewayException $e) {
-    echo "Error: " . $e->getMessage() . "\n";
+    echo "ошибка: " . $e->getMessage() . "\n";
 }
