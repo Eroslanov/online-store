@@ -27,7 +27,7 @@ class Product {
 
     public function reduceStock($quantity) {
         if ($this->stock < $quantity) {
-            throw new Exceptions\OutOfStockException("Not enough stock for product {$this->name}");
+            throw new Exceptions\OutOfStockException("Недостаточно товара на складе {$this->name}");
         }
         $this->stock -= $quantity;
     }
