@@ -21,11 +21,11 @@ class Checkout {
 
     public function processPayment($amount) {
         if ($this->userBalance < $amount) {
-            throw new InsufficientFundsException("Insufficient funds");
+            throw new InsufficientFundsException("Недостаточно средств");
         }
-        // Simulate payment gateway processing
-        if (rand(0, 1)) { // Randomly simulate success or failure
-            throw new PaymentGatewayException("Payment gateway error");
+        
+        if (rand(0, 1)) { 
+            throw new PaymentGatewayException("Ошибка платежа");
         }
         $this->userBalance -= $amount;
     }
@@ -34,11 +34,11 @@ class Checkout {
         try {
             $total = $this->cart->getTotal();
             $this->processPayment($total);
-            echo "Order finalized successfully!\n";
+            echo "Заказ успешно выполнен\n";
         } catch (InsufficientFundsException $e) {
-            echo "Error: " . $e->getMessage() . "\n";
+            echo "ошибка: " . $e->getMessage() . "\n";
         } catch (PaymentGatewayException $e) {
-            echo "Error: " . $e->getMessage() . "\n";
+            echo "ошибка: " . $e->getMessage() . "\n";
         }
     }
 }
