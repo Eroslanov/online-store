@@ -6,8 +6,10 @@ use OnlineStore\Cart;
 use OnlineStore\Exceptions\ItemOutOfStockException;
 use OnlineStore\Exceptions\CartLimitExceededException;
 
-class CartTest extends TestCase {
-    public function testAddItem() {
+class CartTest extends TestCase
+{
+    public function testAddItem(): void
+    {
         $product1 = new Product("Laptop", 1000, 5);
         $cart = new Cart();
         $cart->addItem($product1, 2);
@@ -15,14 +17,16 @@ class CartTest extends TestCase {
         $this->assertEquals(3, $product1->getStock());
     }
 
-    public function testAddItemOutOfStockException() {
+    public function testAddItemOutOfStockException(): void
+    {
         $product1 = new Product("Laptop", 1000, 5);
         $cart = new Cart();
         $this->expectException(ItemOutOfStockException::class);
         $cart->addItem($product1, 6);
     }
 
-    public function testAddItemCartLimitExceededException() {
+    public function testAddItemCartLimitExceededException(): void
+    {
         $product1 = new Product("Laptop", 1000, 5);
         $cart = new Cart();
         for ($i = 0; $i < 20; $i++) {
@@ -32,7 +36,8 @@ class CartTest extends TestCase {
         $cart->addItem($product1, 1);
     }
 
-    public function testRemoveItem() {
+    public function testRemoveItem(): void
+    {
         $product1 = new Product("Laptop", 1000, 5);
         $cart = new Cart();
         $cart->addItem($product1, 2);
@@ -40,7 +45,8 @@ class CartTest extends TestCase {
         $this->assertArrayNotHasKey("Laptop", $cart->items);
     }
 
-    public function testGetTotal() {
+    public function testGetTotal(): void
+    {
         $product1 = new Product("Laptop", 1000, 5);
         $product2 = new Product("Smartphone", 500, 10);
         $cart = new Cart();
