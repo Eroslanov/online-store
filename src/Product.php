@@ -2,32 +2,40 @@
 
 namespace OnlineStore;
 
-class Product {
-    private $name;
-    private $price;
-    private $stock;
+use OnlineStore\Exceptions\OutOfStockException;
 
-    public function __construct($name, $price, $stock) {
+class Product
+{
+    private string $name;
+    private float $price;
+    private int $stock;
+
+    public function __construct(string $name, float $price, int $stock)
+    {
         $this->name = $name;
         $this->price = $price;
         $this->stock = $stock;
     }
 
-    public function getName() {
+    public function getName(): string
+    {
         return $this->name;
     }
 
-    public function getPrice() {
+    public function getPrice(): float
+    {
         return $this->price;
     }
 
-    public function getStock() {
+    public function getStock(): int
+    {
         return $this->stock;
     }
 
-    public function reduceStock($quantity) {
+    public function reduceStock(int $quantity)
+    {
         if ($this->stock < $quantity) {
-            throw new Exceptions\OutOfStockException("Недостаточно товара на складе {$this->name}");
+            throw new OutOfStockException("Недостаточно товара на складе {$this->name}");
         }
         $this->stock -= $quantity;
     }
