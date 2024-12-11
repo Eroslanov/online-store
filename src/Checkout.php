@@ -5,32 +5,37 @@ namespace OnlineStore;
 use OnlineStore\Exceptions\PaymentGatewayException;
 use OnlineStore\Exceptions\InsufficientFundsException;
 
-class Checkout {
-    private $cart;
+class Checkout
+{
+    private Cart $cart;
     private $paymentMethod;
-    private $userBalance;
+    private float $userBalance;
 
-    public function __construct(Cart $cart, $userBalance) {
+    public function __construct(Cart $cart, float $userBalance)
+    {
         $this->cart = $cart;
         $this->userBalance = $userBalance;
     }
 
-    public function setPaymentMethod($method) {
+    public function setPaymentMethod($method)
+    {
         $this->paymentMethod = $method;
     }
 
-    public function processPayment($amount) {
+    public function processPayment(float $amount)
+    {
         if ($this->userBalance < $amount) {
             throw new InsufficientFundsException("Недостаточно средств");
         }
-        
-        if (rand(0, 1)) { 
+
+        if (rand(0, 1)) {
             throw new PaymentGatewayException("Ошибка платежа");
         }
         $this->userBalance -= $amount;
     }
 
-    public function finalizeOrder() {
+    public function finalizeOrder()
+    {
         try {
             $total = $this->cart->getTotal();
             $this->processPayment($total);
