@@ -8,7 +8,7 @@ use OnlineStore\Exceptions\InsufficientFundsException;
 class Checkout
 {
     private Cart $cart;
-    private $paymentMethod;
+    private string $paymentMethod;
     private float $userBalance;
 
     public function __construct(Cart $cart, float $userBalance)
@@ -17,24 +17,24 @@ class Checkout
         $this->userBalance = $userBalance;
     }
 
-    public function setPaymentMethod($method)
+    public function setPaymentMethod(string $method): void
     {
         $this->paymentMethod = $method;
     }
 
-    public function processPayment(float $amount)
+    public function processPayment(float $amount): void
     {
         if ($this->userBalance < $amount) {
             throw new InsufficientFundsException("Недостаточно средств");
         }
 
-        if (rand(0, 1)) {
+        if (rand(0, 1) == 1) {  
             throw new PaymentGatewayException("Ошибка платежа");
         }
         $this->userBalance -= $amount;
     }
 
-    public function finalizeOrder()
+    public function finalizeOrder(): void
     {
         try {
             $total = $this->cart->getTotal();
